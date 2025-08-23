@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState} from 'react'
 import { useSearchParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { addToPastes, updateToPastes } from '../redux/pasteSlice';  // Added updateToPastes import
 
 const Home = () => {
@@ -9,6 +9,16 @@ const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const pasteId = searchParams.get("PasteId");
   const dispatch = useDispatch();
+  const allPastes = useSelector((state) => state.paste.pastes);
+  useEffect(() => {
+    if (pasteId) {
+      const paste = allPastes.find((p) => p._id === pasteId);
+      setTitle(paste.title);
+      setValue(paste.content);
+    }
+    // setTitle()
+
+  }, [pasteId,allPastes]);
 
   function createPaste() {
     const paste = {
@@ -18,14 +28,14 @@ const Home = () => {
       createdAt: new Date().toISOString(),
     }
 
-    if(pasteId){
+    if (pasteId) {
       //update
       dispatch(updateToPastes(paste));
     } else {
       //create
       dispatch(addToPastes(paste));
     }
-    
+
     //after create or update
     setTitle('');
     setValue('');
@@ -35,7 +45,7 @@ const Home = () => {
   return (
     <div>
       <div className='flex flex-row gap-7 place-content-between'>
-        <input 
+        <input
           className='p-1 rounded-2xl mt-2 w-[66%] border-2 border-black'
           type="text"
           placeholder="Enter title here"
@@ -43,16 +53,16 @@ const Home = () => {
           onChange={(e) => setTitle(e.target.value)}
         />
 
-        <button 
+        <button
           onClick={createPaste}
           className='p-3 rounded-2xl mt-2'
         >
           {pasteId ? "Update Paste" : "Create Paste"}
         </button>
       </div>
-      
+
       <div className='mt-8'>
-        <textarea 
+        <textarea
           className='rounded-2xl mt-4 min-w-[500px] p-4 border-2 border-black'
           value={value} // Changed from 'Value' to 'value'
           placeholder='Enter content'
