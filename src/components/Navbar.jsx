@@ -1,5 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import toast from 'react-hot-toast';
+
 
 const Navbar = () => {
   const NavLinkStyles = ({ isActive }) =>

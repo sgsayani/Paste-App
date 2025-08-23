@@ -68,7 +68,7 @@ const Paste = () => {
             >
               {/* Header: Title left, Buttons right */}
               <div className="flex justify-between items-start mb-4">
-                <div className="text-2xl font-extrabold text-gray-800">
+                <div className="text-xl font-extrabold text-gray-600">
                   {paste.title}
                 </div>
 

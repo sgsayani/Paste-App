@@ -1,48 +1,61 @@
-import React, { useEffect, useState} from 'react'
-import { useParams, useSearchParams } from 'react-router-dom';
-import { useDispatch,useSelector } from 'react-redux';
-import { addToPastes, updateToPastes } from '../redux/pasteSlice';  // Added updateToPastes import
+import React from 'react'
+import { useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const ViewPaste = () => {
-  const { id } = useParams();
-  const allPastes = useSelector((state) => state.paste.pastes);
-  const paste = allPastes.find((p) => p._id === id);
-  console.log(paste,';hi')
-  console.log(allPastes,'data')
-
+  const { id } = useParams()
+  const allPastes = useSelector((state) => state.paste.pastes)
+  const paste = allPastes.find((p) => p._id === id)
 
   if (!paste) {
-    return <div className="p-4 text-red-500">Paste not found!</div>
+    return (
+      <div className="p-6 text-red-500 text-lg font-semibold">
+        Paste not found!
+      </div>
+    )
   }
+
   return (
-    <div>
-      <div className='flex flex-row gap-7 place-content-between'>
+    <div className="max-w-4xl mx-auto mt-8 p-6 bg-white shadow-xl rounded-2xl">
+      {/* Header: Title */}
+      <div className="mb-4">
         <input
-          className='p-1 rounded-2xl mt-2 w-[66%] border-2 border-black'
+          className="w-full text-2xl font-extrabold p-3 border-2 border-orange-300 rounded-2xl bg-gradient-to-r from-orange-50 to-yellow-50 text-gray-800 focus:outline-none shadow-md"
           type="text"
-          placeholder="Enter title here"
           value={paste.title}
           disabled
-          onChange={(e) => setTitle(e.target.value)}
         />
-
-        {/* <button
-          onClick={createPaste}
-          className='p-3 rounded-2xl mt-2'
-        >
-          {pasteId ? "Update Paste" : "Create Paste"}
-        </button> */}
       </div>
 
-      <div className='mt-8'>
+      {/* Content */}
+      <div>
         <textarea
-          className='rounded-2xl mt-4 min-w-[500px] p-4 border-2 border-black'
-          value={paste.content} // Changed from 'Value' to 'value'
-          placeholder='Enter content'
+          className="w-full min-h-[300px] p-4 border-2 border-orange-300 rounded-2xl bg-orange-50 text-gray-800 focus:outline-none shadow-inner resize-none"
+          value={paste.content}
           disabled
-          onChange={(e) => setValue(e.target.value)}
-          rows={20}
+          rows={15}
         />
+      </div>
+
+      {/* Footer: Date */}
+      <div className="mt-4 flex justify-end items-center gap-2 text-sm text-gray-500">
+        <span className="flex items-center gap-1">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-4 w-4 text-gray-400"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+            />
+          </svg>
+          <span>{new Date(paste.createdAt).toLocaleString()}</span>
+        </span>
       </div>
     </div>
   )
