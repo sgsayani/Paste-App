@@ -32,7 +32,7 @@ PasteApp is a simple and elegant web application that allows you to create, edit
 4. View or edit any paste using the buttons.
 5. Enjoy the smooth, minimal experience!
 
-#🎨 UI Highlights
+# 🎨 UI Highlights
 
 1. Clean layout with gradient headers
 2. All buttons styled uniformly with icons
