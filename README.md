@@ -38,7 +38,3 @@ PasteApp is a simple and elegant web application that allows you to create, edit
 2. All buttons styled uniformly with icons
 3. Title field on the left, action buttons on the top-right
 4. Date/time info shown with an icon on each paste
-
-
-# 🧑‍💻 Author
-Developed with ❤️ by Sayani
